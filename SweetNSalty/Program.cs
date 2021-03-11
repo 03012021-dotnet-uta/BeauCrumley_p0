@@ -99,7 +99,7 @@ namespace SweetNSalty
             {
                 EvaluatePrint(i, divisors);// check what needs to be printed each iteration. Does so by making call to the EvaluatePrint method.
 
-                if ((i - startNumber) % 10 == 0 && i != 0) // if block to check if the current iteration (as long as it isn't zero) is divisible by 10. Go to new line if so.
+                if ((i - startNumber + 1) % 10 == 0 && i != 0) // if block to check if the current iteration (as long as it isn't zero) is divisible by 10. Go to new line if so.
                 {                                          // in this check the iterator is shifted to start at zero so that the formatting works no matter what the start of the range is.
                     Console.Write("\n");
                 }
