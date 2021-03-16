@@ -44,7 +44,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<CrustOption>(entity =>
             {
                 entity.HasKey(e => e.CrustId)
-                    .HasName("PK__CrustOpt__D8C84C354D0CF82D");
+                    .HasName("PK__CrustOpt__D8C84C35767D2B64");
 
                 entity.Property(e => e.CrustId).HasColumnName("CrustID");
 
@@ -79,17 +79,22 @@ namespace Pizzabox.Storing.dbModels
 
                 entity.Property(e => e.TotalSale).HasColumnType("decimal(8, 2)");
 
+                entity.HasOne(d => d.CustomerNavigation)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.Customer)
+                    .HasConstraintName("FK__Orders__Customer__4AB81AF0");
+
                 entity.HasOne(d => d.FulfillingStoreNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.FulfillingStore)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__Orders__Fulfilli__47DBAE45");
+                    .HasConstraintName("FK__Orders__Fulfilli__49C3F6B7");
             });
 
             modelBuilder.Entity<PizzaHistory>(entity =>
             {
                 entity.HasKey(e => e.PizzaId)
-                    .HasName("PK__PizzaHis__0B6012FDE48EA6B7");
+                    .HasName("PK__PizzaHis__0B6012FD1FCECA56");
 
                 entity.ToTable("PizzaHistory");
 
@@ -101,7 +106,7 @@ namespace Pizzabox.Storing.dbModels
                     .WithMany(p => p.PizzaHistories)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__PizzaHist__Order__4AB81AF0");
+                    .HasConstraintName("FK__PizzaHist__Order__4D94879B");
             });
 
             modelBuilder.Entity<PizzaHistoryJunction>(entity =>
@@ -124,37 +129,37 @@ namespace Pizzabox.Storing.dbModels
                     .WithMany()
                     .HasForeignKey(d => d.CrustId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__PizzaHist__Crust__4D94879B");
+                    .HasConstraintName("FK__PizzaHist__Crust__5070F446");
 
                 entity.HasOne(d => d.Pizza)
                     .WithMany()
                     .HasForeignKey(d => d.PizzaId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__PizzaHist__Pizza__4CA06362");
+                    .HasConstraintName("FK__PizzaHist__Pizza__4F7CD00D");
 
                 entity.HasOne(d => d.Sauce)
                     .WithMany()
                     .HasForeignKey(d => d.SauceId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__PizzaHist__Sauce__4E88ABD4");
+                    .HasConstraintName("FK__PizzaHist__Sauce__5165187F");
 
                 entity.HasOne(d => d.Size)
                     .WithMany()
                     .HasForeignKey(d => d.SizeId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__PizzaHist__SizeI__4F7CD00D");
+                    .HasConstraintName("FK__PizzaHist__SizeI__52593CB8");
 
                 entity.HasOne(d => d.Topping)
                     .WithMany()
                     .HasForeignKey(d => d.ToppingId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__PizzaHist__Toppi__5070F446");
+                    .HasConstraintName("FK__PizzaHist__Toppi__534D60F1");
             });
 
             modelBuilder.Entity<PresetPizza>(entity =>
             {
                 entity.HasKey(e => e.PizzaId)
-                    .HasName("PK__PresetPi__0B6012FD474C4B0D");
+                    .HasName("PK__PresetPi__0B6012FD6A230C21");
 
                 entity.Property(e => e.PizzaId).HasColumnName("PizzaID");
 
@@ -214,7 +219,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<SauceOption>(entity =>
             {
                 entity.HasKey(e => e.SauceId)
-                    .HasName("PK__SauceOpt__667BC48364EDF2DB");
+                    .HasName("PK__SauceOpt__667BC483E9A50308");
 
                 entity.Property(e => e.SauceId).HasColumnName("SauceID");
 
@@ -227,7 +232,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<SizeOption>(entity =>
             {
                 entity.HasKey(e => e.SizeId)
-                    .HasName("PK__SizeOpti__83BD095A78A68627");
+                    .HasName("PK__SizeOpti__83BD095A3254A3DB");
 
                 entity.Property(e => e.SizeId).HasColumnName("SizeID");
 

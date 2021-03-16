@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Pizzabox.Storing.Repositories;
 
 namespace Pizzabox.Domain.Libraries.Models.Menus
 {
@@ -19,7 +20,8 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
 
         public void SetOptions()
         {
-            // Get list of stores from db context
+            List<AStore> storeList = new List<AStore>();
+            storeList = DataAccessor.GetStores();
             MenuOptions.Add("1. Cancel");
             MenuOptions.Add("2. Store 1");
             MenuOptions.Add("3. Store 2");
@@ -35,9 +37,6 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             }
             else
             {
-                Store newStore = Factory.CreateStore();
-                currentOrder.FulfillingStore = newStore;
-                currentOrder.FulfillingStore.Name = MenuOptions[option - 1];
                 MenuController.GoToPizzaSelectMenu();
             }
         }

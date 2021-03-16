@@ -12,6 +12,14 @@ namespace Pizzabox.Domain.IO
         {
             Console.WriteLine("Invalid input, please try again. . .");
         }
+        public static void FirstNamePropmt()
+        {
+            Console.WriteLine("Please enter your first name.");
+        }
+        public static void LastNamePropmt()
+        {
+            Console.WriteLine("Please enter your last name.");
+        }
         public static void ExitMessage()
         {
             Console.WriteLine("Thank you for using the Pizza Box Application");

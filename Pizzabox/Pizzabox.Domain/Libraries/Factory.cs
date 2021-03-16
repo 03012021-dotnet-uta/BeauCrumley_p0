@@ -37,9 +37,13 @@ namespace Pizzabox.Domain.Libraries
         {
             return new Order();
         }
-        public static Store CreateStore()
+        public static AStore CreateStore(int storeID, string name, string address, string[] hours)
         {
-            return new Store();
+            return new AStore(storeID, name, address, hours);
+        }
+        public static ACustomer CreateCustomer(string firstname, string lastname)
+        {
+            return new ACustomer(firstname, lastname);
         }
     }
 }
