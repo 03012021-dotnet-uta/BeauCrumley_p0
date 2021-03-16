@@ -1,31 +1,29 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Pizzabox.Storing.dbModels;
-using Pizzabox.Domain.Libraries.Models;
-using System.Collections.Generic;
-using Pizzabox.Domain.Libraries;
 
 namespace Pizzabox.Storing.Repositories
 {
-    public class DataAccessor
+    public static class DataAccessor
     {
-        public void PersistCustomer(ACustomer newCustomer)
+        public static void PersistCustomer(string[] name)
         {
             using (var db = new PizzaboxDBContext())
             {
                 // logic to check if customer already exists goes here
-                db.Add(new Customer { FirstName = newCustomer.FirstName, LastName = newCustomer.LastName });
+                db.Add(new Customer { FirstName = name[0].ToLower(), LastName = name[1].ToLower() });
                 db.SaveChanges();
             }
         }
-        public List<AStore> GetStores()
+        public static List<string[]> GetStores()
         {
             using (var db = new PizzaboxDBContext())
             {
-                List<AStore> storeList = new List<AStore>();
+                List<string[]> storeList = new List<string[]>();
                 foreach (var store in db.Stores)
                 {
-                    Factory.CreateStore(store.StoreId, store.StoreName, store.StoreAddress, new string[] {store.OpperationHourStart, store.OpperationHourEnd});
+                    storeList.Add(new string[] {store.StoreId.ToString(), store.StoreName, store.StoreAddress, store.OpperationHourStart, store.OpperationHourEnd});
                 }
                 return storeList;
             }

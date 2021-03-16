@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\Pizzabox.Storing\Pizzabox.Storing.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

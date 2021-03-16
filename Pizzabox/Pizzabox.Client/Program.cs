@@ -12,11 +12,9 @@ namespace Pizzabox.Client
         static void Main(string[] args)
         {
             Messenger.WelcomeMessage();
-            
-            var dataAccessor = new DataAccessor();
 
             var newCustomer = Login.GetCustomer();
-            dataAccessor.PersistCustomer(newCustomer);
+            DataAccessor.PersistCustomer(ObjSaver.SendCustomerToMapper(newCustomer));
 
             MenuController.GoToMainMenu();
 

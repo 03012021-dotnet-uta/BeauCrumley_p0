@@ -20,13 +20,16 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
 
         public void SetOptions()
         {
-            List<AStore> storeList = new List<AStore>();
-            storeList = DataAccessor.GetStores();
             MenuOptions.Add("1. Cancel");
-            MenuOptions.Add("2. Store 1");
-            MenuOptions.Add("3. Store 2");
-            MenuOptions.Add("4. Store 3");
-            MenuOptions.Add("5. Store 4");
+
+            List<AStore> storeList = new List<AStore>();
+            storeList = ObjBuilder.BuildStores(DataAccessor.GetStores());
+            var i = 1;
+            foreach (var store in storeList)
+            {
+                i += 1;
+                MenuOptions.Add($"{i}. {store.Name}");
+            }
         }
 
         public void ExecuteOption(int option)
