@@ -40,7 +40,7 @@ namespace Pizzabox.Storing.Repositories
         }
         public static void PersistPizzaJunction(int[] options)
         {
-            /*using (var db = new PizzaboxDBContext())
+            /*using (var db = new PizzaboxDBContext())// need to set up database so that pizza history junction has PK so EF can track it :D
             {
                 db.Add(new PizzaHistoryJunction { PizzaId = options[0], CrustId = options[1], SauceId = options[2], SizeId = options[3], ToppingId = options[4] });
                 db.SaveChanges();
