@@ -44,7 +44,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<CrustOption>(entity =>
             {
                 entity.HasKey(e => e.CrustId)
-                    .HasName("PK__CrustOpt__D8C84C35767D2B64");
+                    .HasName("PK__CrustOpt__D8C84C3550AF54EE");
 
                 entity.Property(e => e.CrustId).HasColumnName("CrustID");
 
@@ -94,7 +94,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<PizzaHistory>(entity =>
             {
                 entity.HasKey(e => e.PizzaId)
-                    .HasName("PK__PizzaHis__0B6012FD1FCECA56");
+                    .HasName("PK__PizzaHis__0B6012FD4B6DC624");
 
                 entity.ToTable("PizzaHistory");
 
@@ -159,7 +159,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<PresetPizza>(entity =>
             {
                 entity.HasKey(e => e.PizzaId)
-                    .HasName("PK__PresetPi__0B6012FD6A230C21");
+                    .HasName("PK__PresetPi__0B6012FD3ED3C11E");
 
                 entity.Property(e => e.PizzaId).HasColumnName("PizzaID");
 
@@ -219,7 +219,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<SauceOption>(entity =>
             {
                 entity.HasKey(e => e.SauceId)
-                    .HasName("PK__SauceOpt__667BC483E9A50308");
+                    .HasName("PK__SauceOpt__667BC48311370C4F");
 
                 entity.Property(e => e.SauceId).HasColumnName("SauceID");
 
@@ -232,7 +232,7 @@ namespace Pizzabox.Storing.dbModels
             modelBuilder.Entity<SizeOption>(entity =>
             {
                 entity.HasKey(e => e.SizeId)
-                    .HasName("PK__SizeOpti__83BD095A3254A3DB");
+                    .HasName("PK__SizeOpti__83BD095AF39AE71A");
 
                 entity.Property(e => e.SizeId).HasColumnName("SizeID");
 

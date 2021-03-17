@@ -5,15 +5,17 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
 {
     public class MainMenu
     {
-        public MainMenu()
+        public MainMenu(ACustomer cust)
         {
+            Customer = cust;
             SetOptions();
             OptionRange[1] = MenuOptions.Count;
         }
 
         public List<string> MenuOptions { get; set; } = new List<string>();
-        public string Name { get; set; } = "Main Menu";
+        public string Name { get; set; } = "\nMain Menu";
         public int[] OptionRange { get; set; } = {1, 0};
+        public ACustomer Customer { get; set; }
 
         public void SetOptions()
         {
@@ -28,7 +30,7 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             {
                 case 1:
                     //start new order
-                    MenuController.GoToNewOrderMenu();
+                    MenuController.GoToNewOrderMenu(Customer);
                     break;
                 case 2:
                     //view order history
@@ -36,7 +38,7 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
                     Console.WriteLine("I am the order history, look at me!");
                     Console.WriteLine("\nPress any key to continue. . .");
                     Console.Read();
-                    MenuController.GoToMainMenu();
+                    MenuController.GoToMainMenu(Customer);
                     break;
                 case 3:
                     //exit application

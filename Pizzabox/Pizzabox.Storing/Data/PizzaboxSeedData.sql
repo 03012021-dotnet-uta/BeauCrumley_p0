@@ -140,18 +140,37 @@ VALUES
 --SELECT * FROM PresetPizzaJunction;
 
 
+CREATE TABLE Customers(
+CustomerID INT PRIMARY KEY IDENTITY(1, 1),
+FirstName VARCHAR(50) NOT NULL,
+LastName VARCHAR(50) NOT NULL);
+
+INSERT INTO Customers (FirstName, LastName)
+VALUES
+('carl', 'sagan'),
+('neil', 'tyson'),
+('richard', 'feynman');
+
+--SELECT * FROM Customers;
+--DELETE FROM Customers WHERE FirstName LIKE '%%';
+--DELETE FROM Customers WHERE CustomerID > 3;
+
+
 CREATE TABLE Orders(
 OrderID INT PRIMARY KEY IDENTITY(1, 1),
 FulfillingStore INT FOREIGN KEY REFERENCES Stores(StoreID) ON DELETE CASCADE,
-OrderDate DATETIME NOT NULL,
+Customer INT FOREIGN KEY REFERENCES Customers(CustomerID),
+OrderDate DATETIME,
 TotalSale DECIMAL(8, 2));
+
+--SELECT * FROM Orders;
 
 
 CREATE TABLE PizzaHistory(
 PizzaID INT PRIMARY KEY IDENTITY(1, 1),
 OrderID INT FOREIGN KEY REFERENCES Orders(OrderID) ON DELETE CASCADE);
 
---SELECT * FROM PizzaHistory
+--SELECT * FROM PizzaHistory;
 
 
 CREATE TABLE PizzaHistoryJunction(
@@ -164,13 +183,27 @@ ToppingID INT FOREIGN KEY REFERENCES Toppings(ToppingID) ON DELETE CASCADE);
 --SELECT * FROM PizzaHistoryJunction;
 
 
-CREATE TABLE Customers(
-CustomerID INT PRIMARY KEY IDENTITY(1, 1),
-FirstName VARCHAR(50) NOT NULL,
-LastName VARCHAR(50) NOT NULL);
-
-INSERT INTO Customers (FirstName, LastName)
-VALUES
-('carl', 'sagan'),
-('neil', 'tyson'),
-('richard', 'feynman');
+--SELECT
+--PresetPizzas.PizzaName AS 'PizzaName', CrustOptions.CrustOptionName AS 'Crust', SauceOptions.SauceOptionName AS 'Sauce', SizeOptions.SizeName AS 'Size', Toppings.ToppingName AS 'Topping'--, PresetPizzaJunction.CrustID AS 'CrustID', PresetPizzaJunction.SauceID AS 'Sauce', PresetPizzaJunction.SizeID AS 'Size', PresetPizzaJunction.ToppingID AS 'Topping'
+--FROM
+--PresetPizzas
+--INNER JOIN
+--PresetPizzaJunction
+--ON
+--PresetPizzas.PizzaID = PresetPizzaJunction.PizzaID
+--INNER JOIN
+--CrustOptions
+--ON
+--CrustOptions.CrustID = PresetPizzaJunction.CrustID
+--INNER JOIN
+--SauceOptions
+--ON
+--SauceOptions.SauceID = PresetPizzaJunction.SauceID
+--INNER JOIN
+--SizeOptions
+--ON
+--SizeOptions.SizeID = PresetPizzaJunction.SizeID
+--INNER JOIN
+--Toppings
+--ON
+--Toppings.ToppingID = PresetPizzaJunction.ToppingID;

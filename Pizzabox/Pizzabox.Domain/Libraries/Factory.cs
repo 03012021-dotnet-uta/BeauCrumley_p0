@@ -5,37 +5,41 @@ namespace Pizzabox.Domain.Libraries
 {
     public static class Factory
     {
-        public static MainMenu CreateMainMenu()
+        public static MainMenu CreateMainMenu(ACustomer cust)
         {
-            return new MainMenu();
+            return new MainMenu(cust);
         }
-        public static NewOrderMenu CreateNewOrderMenu()
+        public static NewOrderMenu CreateNewOrderMenu(ACustomer cust)
         {
-            return new NewOrderMenu();
+            return new NewOrderMenu(cust);
         }
-        public static PizzaSelectMenu CreatePizzaSelectMenu()
+        public static PizzaSelectMenu CreatePizzaSelectMenu(AOrder order)
         {
-            return new PizzaSelectMenu();
+            return new PizzaSelectMenu(order);
         }
-        public static BYOPizzaMenu CreateBYOPizzaMenu()
+        public static BYOPizzaMenu CreateBYOPizzaMenu(AOrder order)
         {
-            return new BYOPizzaMenu();
+            return new BYOPizzaMenu(order);
         }
-        public static AddPizzaItemMenu CreateAddPizzaItemMenu(int menu)
+        public static BYOPizzaMenu CreateBYOPizzaMenu(AOrder order, APizza pizza)
         {
-            return new AddPizzaItemMenu(menu);
+            return new BYOPizzaMenu(order, pizza);
         }
-        public static PreviewOrderMenu CreatePreviewOrderMenu()
+        public static AddPizzaItemMenu CreateAddPizzaItemMenu(AOrder order, APizza pizza, int menu)
         {
-            return new PreviewOrderMenu();
+            return new AddPizzaItemMenu(order, pizza, menu);
         }
-        public static RemoveItemMenu CreateRemoveItemMenu()
+        public static PreviewOrderMenu CreatePreviewOrderMenu(AOrder order)
         {
-            return new RemoveItemMenu();
+            return new PreviewOrderMenu(order);
         }
-        public static Order CreateOrder()
+        public static RemoveItemMenu CreateRemoveItemMenu(AOrder order)
         {
-            return new Order();
+            return new RemoveItemMenu(order);
+        }
+        public static AOrder CreateOrder()
+        {
+            return new AOrder();
         }
         public static AStore CreateStore(int storeID, string name, string address, string[] hours)
         {
@@ -44,6 +48,10 @@ namespace Pizzabox.Domain.Libraries
         public static ACustomer CreateCustomer(string firstname, string lastname)
         {
             return new ACustomer(firstname, lastname);
+        }
+        public static APizza CreateAPizza()
+        {
+            return new APizza();
         }
     }
 }

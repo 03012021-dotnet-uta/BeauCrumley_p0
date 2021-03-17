@@ -6,7 +6,13 @@ namespace Pizzabox.Domain.IO
     {
         public static void WelcomeMessage()
         {
-            Console.WriteLine("\nWelcome to the Pizza Box Application\n____________________________________");
+            Console.WriteLine("\nWelcome to the Mark's Mighty Pizza!\n");
+            StandardLineBreak();
+        }
+
+        public static void StandardLineBreak()
+        {
+            Console.WriteLine("____________________________________");
         }
         public static void InvalidInputMessage()
         {
@@ -24,6 +30,22 @@ namespace Pizzabox.Domain.IO
         {
             Console.WriteLine("Thank you for using the Pizza Box Application");
             Console.Read();
+        }
+        public static void ToppingError()
+        {
+            Console.WriteLine("Too many toppings. . . Please consider starting another pizza!");
+        }
+        public static void CustomPizzaError()
+        {
+            Console.WriteLine("Oops! Please make sure the pizza is complete.");
+        }
+        public static void OrderError()
+        {
+            Console.WriteLine("Oops! Please make sure your order is less than $250.00 and that there are fewer than 50 pizzas on the order.");
+        }
+        public static void OrderPlacedMessage()
+        {
+            Console.WriteLine("Your order has been sent to our store. Expect delivery never.");
         }
     }
 }

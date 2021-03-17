@@ -5,9 +5,9 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
 
     public static class MenuController
     {
-        public static void GoToMainMenu()
+        public static void GoToMainMenu(ACustomer cust)
         {
-            MainMenu mainMenu = Factory.CreateMainMenu();
+            MainMenu mainMenu = Factory.CreateMainMenu(cust);
             mainMenu.DisplayMenuOptions();
 
             var input = InputReader.GetInput();
@@ -16,9 +16,9 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             mainMenu.ExecuteOption(option);
         }
 
-        public static void GoToNewOrderMenu()
+        public static void GoToNewOrderMenu(ACustomer cust)
         {
-            NewOrderMenu newOrderMenu = Factory.CreateNewOrderMenu();
+            NewOrderMenu newOrderMenu = Factory.CreateNewOrderMenu(cust);
             newOrderMenu.DisplayMenuOptions();
 
             var input = InputReader.GetInput();
@@ -27,9 +27,9 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             newOrderMenu.ExecuteOption(option);
         }
 
-        public static void GoToPizzaSelectMenu()
+        public static void GoToPizzaSelectMenu(AOrder order)
         {
-            PizzaSelectMenu pizzaSelectMenu = Factory.CreatePizzaSelectMenu();
+            PizzaSelectMenu pizzaSelectMenu = Factory.CreatePizzaSelectMenu(order);
             pizzaSelectMenu.DisplayMenuOptions();
 
             var input = InputReader.GetInput();
@@ -38,9 +38,19 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             pizzaSelectMenu.ExecuteOption(option);
         }
 
-        public static void GoToBYOPizzaMenu()
+        public static void GoToBYOPizzaMenu(AOrder order)
         {
-            BYOPizzaMenu byoPizzaMenu = Factory.CreateBYOPizzaMenu();
+            BYOPizzaMenu byoPizzaMenu = Factory.CreateBYOPizzaMenu(order);
+            byoPizzaMenu.DisplayMenuOptions();
+
+            var input = InputReader.GetInput();
+
+            var option = InputReader.ValidateInput(input, byoPizzaMenu.OptionRange);
+            byoPizzaMenu.ExecuteOption(option);
+        }
+        public static void GoToBYOPizzaMenu(AOrder order, APizza pizza)
+        {
+            BYOPizzaMenu byoPizzaMenu = Factory.CreateBYOPizzaMenu(order, pizza);
             byoPizzaMenu.DisplayMenuOptions();
 
             var input = InputReader.GetInput();
@@ -49,9 +59,9 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             byoPizzaMenu.ExecuteOption(option);
         }
 
-        public static void GoToAddPizzaItemMenu(int menu)
+        public static void GoToAddPizzaItemMenu(AOrder order, APizza pizza, int menu)
         {
-            AddPizzaItemMenu addPizzaMenu = Factory.CreateAddPizzaItemMenu(menu);
+            AddPizzaItemMenu addPizzaMenu = Factory.CreateAddPizzaItemMenu(order, pizza, menu);
             addPizzaMenu.DisplayMenuOptions();
 
             var input = InputReader.GetInput();
@@ -60,9 +70,9 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             addPizzaMenu.ExecuteOption(option);
         }
 
-        public static void GoToPreviewOrderMenu()
+        public static void GoToPreviewOrderMenu(AOrder order)
         {
-            PreviewOrderMenu previewOrderMenu = Factory.CreatePreviewOrderMenu();
+            PreviewOrderMenu previewOrderMenu = Factory.CreatePreviewOrderMenu(order);
             previewOrderMenu.DisplayMenuOptions();
 
             var input = InputReader.GetInput();
@@ -71,9 +81,9 @@ namespace Pizzabox.Domain.Libraries.Models.Menus
             previewOrderMenu.ExecuteOption(option);
         }
 
-        public static void GoToRemoveItemMenu()
+        public static void GoToRemoveItemMenu(AOrder order)
         {
-            RemoveItemMenu removeItemMenu = Factory.CreateRemoveItemMenu();
+            RemoveItemMenu removeItemMenu = Factory.CreateRemoveItemMenu(order);
             removeItemMenu.DisplayMenuOptions();
 
             var input = InputReader.GetInput();

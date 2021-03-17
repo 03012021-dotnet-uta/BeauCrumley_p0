@@ -2,6 +2,7 @@
 using Pizzabox.Client.Modules;
 using Pizzabox.Domain.IO;
 using Pizzabox.Domain.Libraries;
+using Pizzabox.Domain.Libraries.Models;
 using Pizzabox.Domain.Libraries.Models.Menus;
 using Pizzabox.Storing.Repositories;
 
@@ -16,10 +17,7 @@ namespace Pizzabox.Client
             var newCustomer = Login.GetCustomer();
             DataAccessor.PersistCustomer(ObjSaver.SendCustomerToMapper(newCustomer));
 
-            MenuController.GoToMainMenu();
-
-            Console.Read();//stop program from closing for testing purposes.
-
+            MenuController.GoToMainMenu(newCustomer);
         }
     }   
 }

@@ -18,11 +18,11 @@ namespace Pizzabox.Domain.Libraries.Models
         public string Address { get; set; }
         public string HoursStart { get; set; }
         public string HoursEnd { get; set; }
-        public List<Order> OrdersFulfilled { get; private set; }
+        public List<AOrder> OrdersFulfilled { get; private set; }
 
-        private List<Order> GetListOfOrders()
+        private List<AOrder> GetListOfOrders()
         {
-            List<Order> orderList = new List<Order>();
+            List<AOrder> orderList = new List<AOrder>();
             // db context logic to get orders
             return orderList;
         }

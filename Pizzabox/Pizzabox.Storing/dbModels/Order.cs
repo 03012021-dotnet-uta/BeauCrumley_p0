@@ -15,7 +15,7 @@ namespace Pizzabox.Storing.dbModels
         public int OrderId { get; set; }
         public int? FulfillingStore { get; set; }
         public int? Customer { get; set; }
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
         public decimal? TotalSale { get; set; }
 
         public virtual Customer CustomerNavigation { get; set; }

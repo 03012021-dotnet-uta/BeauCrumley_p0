@@ -2,11 +2,25 @@ using System.Collections.Generic;
 
 namespace Pizzabox.Domain.Libraries.Models
 {
-    public class Order
+    public class AOrder
     {
-        public int OrderTotal { get; private set; }
-        public List<Pizza> PizzasOnOrder { get; set; }
+        public AOrder()
+        {
+            PizzasOnOrder = new List<APizza>();
+        }
+        public float OrderTotal { get; private set; }
+        public List<APizza> PizzasOnOrder { get; set; }
         public AStore FulfillingStore { get; set; }
         public ACustomer customer { get; set; }
+
+        public void CalculateOrderTotal()
+        {
+            OrderTotal = 0;
+            foreach (var pizza in PizzasOnOrder)
+            {
+                pizza.CalculatePrice();
+                OrderTotal += pizza.Price;
+            }
+        }
     }
 }
