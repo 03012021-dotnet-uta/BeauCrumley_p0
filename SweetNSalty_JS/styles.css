@@ -1,0 +1,91 @@
+body {
+    background-color: #1e1e1e;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #cacaca;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 15px;
+}
+
+.banner {
+    background-color: #3f3f3f;
+    padding: 20px;
+    padding-left: 75px;
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    min-width: 1080px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.buzzbox {
+    flex-basis: 10%;
+}
+.buzzbox-inner {
+    background-color: #3f3f3f;
+    margin: 2px;
+    border-radius: 3px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.buzzbox-inner:hover {
+    background-color: #cacaca;
+    color: #3f3f3f;
+}
+
+.sweetSaltyBox {
+    flex-basis: 10%;
+}
+.sweetSaltyBox .buzzbox-inner{
+    font-weight: bold;
+    color: #f0f0f0;
+    background-color: #119126;
+}
+.sweetSaltyBox .buzzbox-inner:hover{
+    color: #119126;
+    background-color: #f0f0f0;
+}
+
+.sweetBox {
+    flex-basis: 10%;
+}
+.sweetBox .buzzbox-inner{
+    font-weight: bold;
+    color: #f0f0f0;
+    background-color: #3d596b;
+}
+.sweetBox .buzzbox-inner:hover{
+    color: #3d596b;
+    background-color: #f0f0f0;
+}
+
+.saltyBox {
+    flex-basis: 10%;
+}
+.saltyBox .buzzbox-inner{
+    font-weight: bold;
+    color: #f0f0f0;
+    background-color: #3d6b54;
+}
+.saltyBox .buzzbox-inner:hover{
+    font-weight: bold;
+    color: #3d6b54;
+    background-color: #f0f0f0;
+}
+
+.chartTitle {
+    margin: auto;
+    margin-bottom: -45px;
+    z-index: 999;
+    font-size: 25px;
+    font-weight: 600;
+}
