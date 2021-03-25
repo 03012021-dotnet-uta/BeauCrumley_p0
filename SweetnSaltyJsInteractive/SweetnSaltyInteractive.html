@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet N' Salty Interactive</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 15px;
+        }
+        
+        .banner {
+            background-color: #3f3f3f;
+            padding: 20px;
+            padding-left: 75px;
+            font-size: 35px;
+        }
+        .banner-error {
+            background-color: #b41010;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            padding: 2px;
+            display: none;
+        }
+        .controls {
+            width: 175px;
+            background-color: #999790;
+            color: #1e1e1e;
+            font-weight: bold;
+            position: fixed;
+            left: -215px;
+            top: 130px;
+            border-radius: 0 0 10px 0;
+            padding: 20px;
+            z-index: 1000;
+            transition: left .3s;
+            transition-timing-function: ease-in-out;
+            /*height: 70px;
+            height: initial;*/
+        }
+        .controls-toggle {
+            position: relative;
+            float: right;
+            background-color: #999790;
+            width: 20px;
+            height: 100px;
+            left: 40px;
+            top: -20px;
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .controls-toggle:hover {
+            background-color: #f4f4f4;
+        }
+        .controls-arrow-right {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent; 
+            border-right: 10px solid #1e1e1e;
+        }
+        .controls-arrow-left {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent; 
+            border-left: 10px solid #1e1e1e;
+        }
+
+        .controls-label {
+            color: #f4f4f4;
+            font-size: 15px;
+            font-weight: bold;
+            position: absolute;
+            top: -20px;
+            left: 215px;
+            transition: left .3s;
+            transition-timing-function: ease-in-out;
+        }
+
+        .sns-control-option {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .sns-control-input {
+            padding-left: 10px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            border-style: none;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .sns-run {
+            text-align: center;
+        }
+        .sns-button {
+            width: 40%;
+            margin-top: 20px;
+            color: #f4f4f4;
+            background-color: #792c2c;
+            font-weight: bold;
+            border-style: none;
+            border-radius: 0 20px 20px 0;
+            padding: 7px;
+        }
+        .sns-button-reset {
+            background-color: #a4b787;
+            border-radius: 20px 0 0 20px;
+            color: #1e1e1e;
+        }
+
+        .sns-run input:hover {
+            color: #1e1e1e;
+            background-color: #f4f4f4;
+        }
+
+        .input-error {
+            background-color: #b41010;
+            color: #fff;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 80%;
+            min-width: 700px;
+            margin: auto;
+            margin-bottom: 50px;
+            margin-top: 30px;
+        }
+        
+        .buzzbox {
+            flex-basis: 10%;
+        }
+        .buzzbox-inner {
+            background-color: #792c2c;
+            margin: 2px;
+            border-radius: 3px;
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            overflow: clip;
+        }
+        
+        .buzzbox-inner:hover {
+            background-color: #1e1e1e;
+            color: #f4f4f4;
+        }
+        
+        .sweetSaltyBox {
+            flex-basis: 10%;
+        }
+        .sweetSaltyBox .buzzbox-inner{
+            font-weight: bold;
+            color: #1e1e1e;
+            background-color: #f8e4b7;
+        }
+        .sweetSaltyBox .buzzbox-inner:hover{
+            color: #f8e4b7;
+            background-color: #1e1e1e;
+        }
+        
+        .sweetBox {
+            flex-basis: 10%;
+        }
+        .sweetBox .buzzbox-inner{
+            font-weight: bold;
+            color: #1e1e1e;
+            background-color: #a4b787;
+        }
+        .sweetBox .buzzbox-inner:hover{
+            color: #a4b787;
+            background-color: #1e1e1e;
+        }
+        
+        .saltyBox {
+            flex-basis: 10%;
+        }
+        .saltyBox .buzzbox-inner{
+            font-weight: bold;
+            color: #1e1e1e;
+            background-color: #f4f4f4;
+        }
+        .saltyBox .buzzbox-inner:hover{
+            font-weight: bold;
+            color: #f4f4f4;
+            background-color: #1e1e1e;
+        }
+        
+        .chartTitle {
+            margin: auto;
+            margin-bottom: -45px;
+            z-index: 999;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        #intro-screen {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.25);
+            z-index: 9999;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #intro-box {
+            background-color: #3f3f3f;
+            width: 50%;
+            position: relative;
+            top: 20vh;
+            margin: auto;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        #intro-button {
+            background-color: #9acd32;
+            border-radius: 5px;
+            border-style: none;
+            padding: 5px;
+            width: 100px;
+            transition: width .2s;
+        }
+        #intro-button:hover {
+            background-color: #f4f4f4;
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">SweetN'Salty JS Interactive</div>
+    <div id="range-error" class="banner-error">Range Error - Check options and ensure beginning and end count are no more than 10000 and no less than 200 apart.</div>
+    <div id="col-error" class="banner-error">Column Count Error - Check options and ensure there are at least 5 but no more than 100 columns.</div>
+    <div id="intro-screen">
+        <div id="intro-box">
+            <p>Welcome to SweetN'Salty! This is a 'game' where you get to see numbers get replaced by words! The way it works is anytime a number is evenly divisible by one of two other numbers (called divisors) then that number will be replaced by a word. Sweet or Salty depending on which divisor the number is evenly divisible by. If a number is evenly divisible by both numbers then it is replced by SweetN'Salty! To begin check out the controls on the left side of your screen. You will need to provide a range of numbers to count through, which numbers you want to be the divisors, and how many columns you want the results to show up on. Enjoy!</p>
+            <input type="button" id="intro-button" value="Let's Goooo!" onclick="hideIntro()"/>
+        </div>
+    </div>
+    <div class="control-output_container">
+        <div class="controls" id="controls">
+            <div class="controls-label">CONTROLS</div>
+            <div class="controls-toggle" onclick="toggleControls()">
+                <div id="controls-arrow" class="controls-arrow-left"></div>
+            </div>
+            <div class="sns-control-option">
+                <div class="sns-control-label">Beginning Count</div>
+                <input class="sns-control-input" type="number" id="range-start" value="1" />
+            </div>
+            <div class="sns-control-option">
+                <div class="sns-control-label">End Count</div>
+                <input class="sns-control-input" type="number" id="range-end" value="1000" />
+            </div>
+            <div class="sns-control-option">
+                <div class="sns-control-label">Sweet Divisor</div>
+                <input class="sns-control-input" type="number" id="sweet-divisor" value="3" />
+            </div>
+            <div class="sns-control-option">
+                <div class="sns-control-label">Salty Divisor</div>
+                <input class="sns-control-input" type="number" id="salty-divisor" value="5" />
+            </div>
+            <div class="sns-control-option">
+                <div class="sns-control-label">Column Count</div>
+                <input class="sns-control-input" type="number" id="col-count" value="10" />
+            </div>
+            <div class="sns-control-option sns-run">
+                <input class="sns-button sns-button-reset" id="reset-button" type="button" value="Reset" onclick="reset()" />
+                <input class="sns-button" id="run-button" type="button" value="Run!" onclick="SweetNSalty()" />
+            </div>
+        </div>
+        <div id="container1" class="container"></div>
+            <div class="container">
+                <div class="chartTitle"></div>
+                <div id="chart_div"></div>
+                <div id="piechart"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        setup();
+        function setup() {
+            let inputs = document.querySelectorAll(".sns-control-input");
+
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("run-button").click();
+                }
+                });
+            }
+        }
+
+        function SweetNSalty() {
+            document.getElementById('container1').innerHTML = "";
+            let rangeError = document.querySelector("#range-error");
+            let colError = document.querySelector("#col-error");
+            let rangeEndElem = document.querySelector("#range-end");
+            let rangeStartElem = document.querySelector("#range-start");
+            let colElem = document.querySelector("#col-count");
+
+            rangeError.style.removeProperty("display");
+            colError.style.removeProperty("display");
+            rangeStartElem.classList.remove("input-error");
+            rangeEndElem.classList.remove("input-error");
+            colElem.classList.remove("input-error");
+
+
+
+            let divisor1 = parseInt(document.querySelector("#sweet-divisor").value);
+            let divisor2 = parseInt(document.querySelector("#salty-divisor").value);
+            let buzz1 = "sweetn'salty";
+            let buzz2 = "sweet";
+            let buzz3 = "salty";
+            let buzz1Score = 0;
+            let buzz2Score = 0;
+            let buzz3Score = 0;
+            let minRange = parseInt(document.querySelector("#range-start").value);
+            let maxRange = parseInt(document.querySelector("#range-end").value);
+            let formattedNumber = "";
+            let numCols = parseInt(document.querySelector("#col-count").value);
+            let flexBasis = 100/numCols;
+            let boxWidth = parseFloat(document.querySelector("#container1").offsetWidth/numCols);
+
+            if (Math.abs(minRange - maxRange) > 10000 || Math.abs(minRange - maxRange) < 200) {
+                rangeError.style.display = "block";
+                rangeStartElem.classList.add("input-error");
+                rangeEndElem.classList.add("input-error");
+                controlsOn();
+            } else if (numCols < 5 || numCols > 100) {
+                colError.style.display = "block";
+                colElem.classList.add("input-error");
+            } else {
+                if (minRange > maxRange) {
+                    for (let i = minRange; i >= maxRange; i--) {
+                        if (i % divisor1 == 0 && i % divisor2 == 0) {
+                            document.getElementById('container1').innerHTML += `<div class="sweetSaltyBox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">SweetN'Salty!</div></div>`;
+                            buzz1Score++;
+                        } else if (i % divisor1 == 0) {
+                            document.getElementById('container1').innerHTML += `<div class="sweetBox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">Sweet!</div></div>`;
+                            buzz2Score++;
+                        } else if (i % divisor2 == 0) {
+                            document.getElementById('container1').innerHTML += `<div class="saltyBox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">Salty!</div></div>`;
+                            buzz3Score++;
+                        } else {
+                            formattedNumber = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            document.getElementById('container1').innerHTML += `<div class="buzzbox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">${formattedNumber}</div></div>`;
+                        }
+                    }
+                } else {
+                    for (let i = minRange; i <= maxRange; i++) {
+                        if (i % divisor1 == 0 && i % divisor2 == 0) {
+                            document.getElementById('container1').innerHTML += `<div class="sweetSaltyBox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">SweetN'Salty!</div></div>`;
+                            buzz1Score++;
+                        } else if (i % divisor1 == 0) {
+                            document.getElementById('container1').innerHTML += `<div class="sweetBox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">Sweet!</div></div>`;
+                            buzz2Score++;
+                        } else if (i % divisor2 == 0) {
+                            document.getElementById('container1').innerHTML += `<div class="saltyBox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">Salty!</div></div>`;
+                            buzz3Score++;
+                        } else {
+                            formattedNumber = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            document.getElementById('container1').innerHTML += `<div class="buzzbox" style="flex-basis: ${flexBasis}%; width: ${boxWidth}px;"><div class="buzzbox-inner">${formattedNumber}</div></div>`;
+                        }
+                    }
+                }
+                let scores = [buzz1Score, buzz2Score, buzz3Score];
+                let words = [buzz1, buzz2, buzz3];
+                let allOthers = Math.abs(minRange - maxRange) - (buzz1Score + buzz2Score + buzz3Score);
+                makeChart(words, scores);
+                makePieChart(words, scores, allOthers);
+                document.querySelector(".chartTitle").innerHTML = "SweetN'Salty Scores";
+                toggleControls();
+            }
+        }
+
+        function makeChart(buzz, scores) {
+            google.charts.load('current', {'packages':['corechart']});
+
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Occurrence', '# Times Occured', { role: 'style' }, { role: 'annotation' } ],
+                    [buzz[0], scores[0], '#f8e4b7', scores[0] ],
+                    [buzz[1], scores[1], '#a4b787', scores[1] ],
+                    [buzz[2], scores[2], '#f4f4f4', scores[2] ]
+                ]);
+                var options = {
+                    'titlePosition': 'none',
+                    'width':document.getElementById('container1').getBoundingClientRect().width,
+                    'height':300,
+                    'legend': { position: "none" },
+                    'backgroundColor': '#1e1e1e',
+                    'chartArea': {
+                        'backgroundColor': {
+                            'fill': '#1e1e1e'
+                        }
+                    },
+                    'hAxis': {
+                        'titleTextStyle': {
+                            'color': "cacaca"
+                        },
+                        'textStyle': {
+                            'color': '#cacaca'
+                        },
+                        'baselineColor': '#cacaca',
+                        'gridlines': {
+                            'color': '#cacaca'
+                        }
+                    },
+                    'vAxis': {
+                        'titleTextStyle': {
+                            'color': "cacaca"
+                        },
+                        'textStyle': {
+                            'color': '#cacaca'
+                        },
+                        'baselineColor': '#cacaca'
+                    }
+                };
+
+                var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+        }
+
+        function makePieChart(buzz, scores, numRegularNumbers) {
+            
+            google.charts.setOnLoadCallback(drawPieChart);
+
+            function drawPieChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Score', '# Times Occured'],
+                [buzz[0], scores[0]],
+                [buzz[1], scores[1]],
+                [buzz[2], scores[2]],
+                ['Regular Numbers', numRegularNumbers]
+            ]);
+
+            var options = {
+                    'titlePosition': 'none',
+                    'pieHole': 0.4,
+                    'slices': {
+                        0: { 'color': '#f8e4b7', 'textStyle': { 'color': '#1e1e1e' } },
+                        1: { 'color': '#a4b787', 'textStyle': { 'color': '#1e1e1e' }  },
+                        2: { 'color': '#f4f4f4', 'textStyle': { 'color': '#1e1e1e' }  },
+                        3: { 'color': '#792c2c' }
+                    },
+                    'pieSliceBorderColor': '#1e1e1e',
+                    'width':document.getElementById('container1').getBoundingClientRect().width,
+                    'height':300,
+                    'legend': { position: "none" },
+                    'backgroundColor': '#1e1e1e',
+                    'chartArea': {
+                        'backgroundColor': {
+                            'fill': '#1e1e1e'
+                        }
+                    }
+                };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+            }
+
+        }
+
+        function controlsOn() {
+            let controls = document.querySelector("#controls");
+            let controlsLabel = document.querySelector(".controls-label");
+            let controlsArrow = document.querySelector("#controls-arrow");
+            if (controls.style.length == 0) {
+                controls.style.left = 0;
+                controlsLabel.style.left = 0;
+                controlsArrow.classList.remove("controls-arrow-left");
+                controlsArrow.classList.add("controls-arrow-right");
+            }
+        }
+
+        function toggleControls() {
+            let controls = document.querySelector("#controls");
+            let controlsLabel = document.querySelector(".controls-label");
+            let controlsArrow = document.querySelector("#controls-arrow");
+            if (controls.style.length == 0) {
+                controls.style.left = 0;
+                controlsLabel.style.left = 0;
+                controlsArrow.classList.remove("controls-arrow-left");
+                controlsArrow.classList.add("controls-arrow-right");
+            } else {
+                controls.style.removeProperty("left");
+                controlsLabel.style.removeProperty("left");
+                controlsArrow.classList.remove("controls-arrow-right");
+                controlsArrow.classList.add("controls-arrow-left");
+            }
+        }
+
+        function reset() {
+            document.querySelector("#chart_div").innerHTML = "";
+            document.querySelector("#container1").innerHTML = "";
+            document.querySelector("#range-start").value = 0;
+            document.querySelector("#range-end").value = 0;
+            document.querySelector("#sweet-divisor").value = 0;
+            document.querySelector("#salty-divisor").value = 0;
+            document.querySelector("#col-count").value = 0;
+            document.querySelector(".chartTitle").innerHTML = "";
+        }
+
+        function hideIntro() {
+            document.querySelector("#intro-screen").style.display = "none";
+            toggleControls();
+        }
+    </script>
+</body>
+</html>
